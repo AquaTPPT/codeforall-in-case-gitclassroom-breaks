@@ -59,12 +59,32 @@ public class ArrayList implements ListInterface, Collection {
     }
 
     @Override
-    public boolean remove(int el) {
-        return false;
+    public boolean remove(int index) {
+        if (length <= 0 || index >= length) {
+            return false;
+        }
+        Object[] arrTemp = new Object[length - 1];
+        for (int i = 0; i < arr.length; i++) {
+            if (i < index) {
+                arrTemp[i] = arr[i];
+            }
+            else if (i == index) {
+            }
+            else {
+                arrTemp[i - 1] = arr[i];
+            }
+        }
+        arr = arrTemp;
+        return true;
     }
 
     @Override
     public boolean contains(Object el) {
+        for (int i = 0; i < length; i++) {
+            if (el == arr[i]) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -75,8 +95,6 @@ public class ArrayList implements ListInterface, Collection {
 
     @Override
     public void clear() {
-        arr = new Object[0];
+        arr = null;
     }
-
-
 }
