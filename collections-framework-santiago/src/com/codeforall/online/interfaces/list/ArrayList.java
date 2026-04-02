@@ -42,7 +42,7 @@ public class ArrayList implements ListInterface, Collection {
     }
 
     @Override
-    public boolean add(Object el) {
+    public boolean add(Object el) { // create new add with index as well
         Object[] arrTemp = arr;
         arr = new Object[length + 1];
         if (arrTemp == null) {
@@ -58,8 +58,18 @@ public class ArrayList implements ListInterface, Collection {
         return true;
     }
 
+
+
+    public boolean add(Object el, int index) {
+        return false;
+    }
+
     @Override
-    public boolean remove(int index) {
+    public boolean remove(Object el) {
+        return false;
+    }
+
+    public boolean remove(int index) { // should remove(Object obj)!!
         if (length <= 0 || index >= length) {
             return false;
         }

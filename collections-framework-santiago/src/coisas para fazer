@@ -1,0 +1,5 @@
+ - alterar as classes todas de acordo com a interface Collection
+
+ - public boolean remove(int index) should remove(Object obj)!!
+
+ - create new add with index as well
