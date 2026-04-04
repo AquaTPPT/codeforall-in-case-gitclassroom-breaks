@@ -6,7 +6,7 @@ public interface Collection {
 
     boolean add(Object el); // add element to the collection
 
-    boolean remove(Object el); // remove element from the collection
+    boolean remove(); // remove element from the collection
 
     boolean contains(Object el); // check if the collection has object element
 

@@ -58,13 +58,17 @@ public class ArrayList implements ListInterface, Collection {
         return true;
     }
 
+    @Override
+    public boolean remove() {
+        return false;
+    }
 
 
     public boolean add(Object el, int index) {
         return false;
     }
 
-    @Override
+
     public boolean remove(Object el) {
         return false;
     }
@@ -74,7 +78,7 @@ public class ArrayList implements ListInterface, Collection {
             return false;
         }
         Object[] arrTemp = new Object[length - 1];
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {  
             if (i < index) {
                 arrTemp[i] = arr[i];
             }

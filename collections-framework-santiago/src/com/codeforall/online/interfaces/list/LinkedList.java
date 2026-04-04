@@ -14,6 +14,14 @@ public class LinkedList implements ListInterface, Collection {
     }
 
     @Override
+    public boolean remove() {
+        return false;
+    }
+
+    public boolean remove(Object el) {
+        return false;
+    }
+
     public boolean remove(int el) {
         return false;
     }
