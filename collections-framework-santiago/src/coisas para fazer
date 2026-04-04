@@ -3,3 +3,5 @@
  - public boolean remove(int index) should remove(Object obj)!!
 
  - create new add with index as well
+
+ - linked lists
