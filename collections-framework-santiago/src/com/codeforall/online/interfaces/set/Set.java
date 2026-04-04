@@ -155,4 +155,7 @@ public class Set implements SetInterface, Collection {
     public void clear() {
         arr = new Object[0];
     }
+
+    //so pra testar se works
+
 }
