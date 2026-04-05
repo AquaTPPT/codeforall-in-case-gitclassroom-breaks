@@ -39,7 +39,29 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
     }
 
     @Override
+    //deberia ser remove (T el)
     public boolean remove() {
+
+        //declare 2 nodes: A to have a starting point to avoid the node we want to remove
+        // B to compare each other data.
+        Node<T> nodeA = head;
+        Node<T> nodeB = head.getGetNextNode();
+
+        //while we still have nodes to compare
+        while (nodeB != null) {
+
+            //if(el.equals(current.GetData())){
+
+            // we "jump" node B
+            // nodeA.SetNextNode(nodeB.GetNextNode());
+            // lenght--;
+            return true;
+        //}
+        }
+
+        nodeA = nodeB;
+        nodeB = nodeB.getGetNextNode();
+
         return false;
     }
 
@@ -53,17 +75,34 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
 
     @Override
     public boolean contains(T el) {
+
+        //declare interator to check each node starting not from the head but from
+        //1st "index" (list do not have index).
+        Node<T> iterator = head.getGetNextNode();
+
+        //while we still have elements to check, we
+        //compare de data of el with the data of iterator
+        //if it founds the same we print, if not we jump to
+        //the following node
+        while (iterator != null){
+            if(el.equals(iterator.getData())){
+                System.out.println("we found the data");
+                return true;
+            }
+            iterator = iterator.getGetNextNode();
+        }
         return false;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return lenght == 0;
     }
 
     @Override
     public void clear() {
-
+        head.setNextNode(null);
+        lenght = 0;
     }
 
     @Override
