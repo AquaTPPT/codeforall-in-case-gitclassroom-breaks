@@ -2,17 +2,17 @@ package com.codeforall.online.interfaces.list;
 
 import com.codeforall.online.interfaces.Collection;
 
-public class ArrayList implements ListInterface, Collection {
+public class ArrayList<T> implements ListInterface<T>, Collection<T> {
     private int length = 0;
-    private Object[] arr;
+    private T[] arr;
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         return arr[index];
     }
 
     @Override
-    public int indexOf(Object el) {
+    public int indexOf(T el) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == el) {
                 return i;
@@ -22,12 +22,12 @@ public class ArrayList implements ListInterface, Collection {
     }
 
     @Override
-    public Object[] subList(int fromIndex, int toIndex) {
+    public T[] subList(int fromIndex, int toIndex) {
         int counter = 0;
         for (int i = fromIndex; i <= toIndex; i++) {
             counter++;
         }
-        Object[] arrTemp = new Object[counter];
+        T[] arrTemp = (T[]) new Object[counter];
         counter = 0;
         for (int i = fromIndex; i <= toIndex; i++) {
             arr[i] = arrTemp[counter];
@@ -42,9 +42,9 @@ public class ArrayList implements ListInterface, Collection {
     }
 
     @Override
-    public boolean add(Object el) { // create new add with index as well
-        Object[] arrTemp = arr;
-        arr = new Object[length + 1];
+    public boolean add(T el) { // create new add with index as well
+        T[] arrTemp = arr;
+        arr = (T[]) new Object[length + 1];
         if (arrTemp == null) {
             arr[length] = el;
             length++;
@@ -64,12 +64,12 @@ public class ArrayList implements ListInterface, Collection {
     }
 
 
-    public boolean add(Object el, int index) {
+    public boolean add(T el, int index) {
         return false;
     }
 
 
-    public boolean remove(Object el) {
+    public boolean remove(T el) {
         return false;
     }
 
@@ -77,7 +77,7 @@ public class ArrayList implements ListInterface, Collection {
         if (length <= 0 || index >= length) {
             return false;
         }
-        Object[] arrTemp = new Object[length - 1];
+        T[] arrTemp = (T[]) new Object[length - 1];
         for (int i = 0; i < arr.length; i++) {  
             if (i < index) {
                 arrTemp[i] = arr[i];
@@ -93,7 +93,7 @@ public class ArrayList implements ListInterface, Collection {
     }
 
     @Override
-    public boolean contains(Object el) {
+    public boolean contains(T el) {
         for (int i = 0; i < length; i++) {
             if (el == arr[i]) {
                 return true;

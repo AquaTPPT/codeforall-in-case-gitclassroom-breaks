@@ -2,23 +2,23 @@ package com.codeforall.online.interfaces.queue;
 
 import com.codeforall.online.interfaces.Collection;
 
-public class Queue implements QueueInterface, Collection {
-    private Object[] arr; // this can be done with arrays or LinkedLists (nodes, pretty much). change this later on
+public class Queue<T> implements QueueInterface<T>, Collection<T> {
+    private T[] arr; // this can be done with arrays or LinkedLists (nodes, pretty much). change this later on
     private int length = 0;
 
 
     //should return a boolean representing if the operation was successful;
     //it should add an object to the Queue.
     @Override
-    public boolean offer(Object el) {
+    public boolean offer(T el) {
         if (arr == null) {
-            arr = new Object[1];
+            arr = (T[]) new Object[1];
             arr[0] = el;
             length = 1;
             return true;
         }
 
-        Object[] arrTemp = new Object[length + 1];
+        T[] arrTemp = (T[]) new Object[length + 1];
 
         for (int i = 0; i < length; i++){
             arrTemp[i] = arr[i];
@@ -34,27 +34,27 @@ public class Queue implements QueueInterface, Collection {
 
     //should return the object at the head of the queue without removing it.
     @Override
-    public Object peek() {
+    public T peek() {
         return arr[0];
     }
 
     //should return the object of the head of the queue, removing it.
     @Override
-    public Object poll() {
+    public T poll() {
         if (length <= 0) {
-            return false;
+            return null;
         }
 
-        Object firstIndex = arr[0];
+        T firstIndex = arr[0];
 
-        Object[] arrTemp = new Object[length -1];
+        T[] arrTemp = (T[]) new Object[length -1];
         for (int i = 0; i < arr.length - 1; i++) {
 
             arrTemp[i] = arr[i + 1];
 
         }
         arr = arrTemp;
-        length--; //also applies to poll lenght++; ?
+        length--;
         return firstIndex;
     }
 
@@ -64,9 +64,9 @@ public class Queue implements QueueInterface, Collection {
     }
 
     @Override
-    public boolean add(Object el) {
-        Object[] arrTemp = arr;
-        arr = new Object[length + 1];
+    public boolean add(T el) {
+        T[] arrTemp = arr;
+        arr = (T[]) new Object[length + 1];
         if (arrTemp == null) {
 
             arr[length] = el;
@@ -86,7 +86,7 @@ public class Queue implements QueueInterface, Collection {
         if (length <= 0) {
             return false;
         }
-        Object[] arrTemp = new Object[length - 1];
+        T[] arrTemp = (T[]) new Object[length - 1];
         for (int i = 0; i < arr.length - 1; i++) {
             arrTemp[i] = arr[i];
         }
@@ -95,7 +95,7 @@ public class Queue implements QueueInterface, Collection {
     }
 
     @Override
-    public boolean contains(Object el) {
+    public boolean contains(T el) {
         for (int i = 0; i < length; i++) {
             if (el == arr[i]) {
                 return true;

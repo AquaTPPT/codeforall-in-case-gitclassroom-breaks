@@ -2,19 +2,18 @@ package com.codeforall.online.interfaces.set;
 
 import com.codeforall.online.interfaces.Collection;
 
-public class HashSet implements SetInterface, Collection {
+public class HashSet<T> implements SetInterface<T>, Collection<T> {
     private int length = 0;
-    private Object[] arr = new Object[16];
+    private T[] arr = (T[]) new Object[16];
     private double loadFactor = 0;
     private int objectCounter = 0;
-    // load factor missing!!!
 
     @Override
     public int size() {
         return arr.length;
     }
 
-    public int indexOf(Object el) {
+    public int indexOf(T el) {
         int index = setHashPosition(el);
         if (arr[index] == null) {
             return -1;
@@ -33,7 +32,7 @@ public class HashSet implements SetInterface, Collection {
 
 
     @Override
-    public boolean add(Object el) {
+    public boolean add(T el) {
         if (loadFactor >= 0.9) {
             resize(arr);
             redoPercentages();
@@ -70,28 +69,31 @@ public class HashSet implements SetInterface, Collection {
         return true;
     }
 
-    public boolean remove(Object el) {
+    public boolean remove(T el) {
         int index = setHashPosition(el);
 
         if (arr[index] != null && arr[index] == el) {
             arr[index] = null;
+            removePercentage();
             return true;
         }
         else {
             int iterator = index;
             while (setHashPosition(arr[iterator]) == index) {
-                if (arr[iterator] != null && arr[index] == el) {
+                if (arr[iterator] != null && arr[iterator] == el) {
+                    arr[iterator] = null;
                     return true;
                 }
                 iterator++;
             }
+
         }
         return false;
     }
 
 
     @Override
-    public boolean contains(Object el) {
+    public boolean contains(T el) {
         int index = setHashPosition(el);
         if (arr[index] != null && arr[index] == el) {
             return true;
@@ -108,10 +110,10 @@ public class HashSet implements SetInterface, Collection {
         return false;
     }
 
-    private Object[] resize(Object[] arr) {
-        Object[] arrTemp = arr;
+    private T[] resize(T[] arr) {
+        T[] arrTemp = arr;
 
-        arr = new Object[arrTemp.length * 2];
+        arr = (T[]) new Object[arrTemp.length * 2];
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = arrTemp[i];
@@ -120,26 +122,28 @@ public class HashSet implements SetInterface, Collection {
         return arr = arrTemp;
     }
 
-    private int setHashPosition(Object el) {
+    private int setHashPosition(T el) {
         int hashCode = el.hashCode();
         return Math.abs(hashCode % arr.length);
     }
 
-    private double addPercentage() {
-        return loadFactor += (1 / arr.length) * 100;
+    private void addPercentage() {
+        objectCounter++;
+        redoPercentages();
     }
 
-    private double removePercentage() {
-        return loadFactor -= (1 / arr.length) * 100;
+    private void removePercentage() {
+        objectCounter--;
+        redoPercentages();
     }
 
-    private double redoPercentages() {
-        return loadFactor = (objectCounter / arr.length) * 100;
+    private void redoPercentages() {
+        loadFactor = (objectCounter / arr.length) * 100;
     }
 
     @Override
     public boolean isEmpty() {
-        for (Object el : arr) {
+        for (T el : arr) {
             if (el != null) {
                 return false;
             }
