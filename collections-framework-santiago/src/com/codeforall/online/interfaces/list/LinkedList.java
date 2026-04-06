@@ -39,35 +39,38 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
     }
 
     @Override
-    //deberia ser remove (T el)
     public boolean remove() {
+        return false;
+    }
+
+    @Override
+    //deberia ser remove (T el)
+    public boolean remove(T el) {
 
         //declare 2 nodes: A to have a starting point to avoid the node we want to remove
-        // B to compare each other data.
+        //B to compare each other data.
         Node<T> nodeA = head;
         Node<T> nodeB = head.getGetNextNode();
 
         //while we still have nodes to compare
         while (nodeB != null) {
 
-            //if(el.equals(current.GetData())){
+            if(el.equals(nodeB.getData())){
 
             // we "jump" node B
-            // nodeA.SetNextNode(nodeB.GetNextNode());
-            // lenght--;
+            nodeA.setNextNode((nodeB.getGetNextNode()));
+            lenght--;
             return true;
-        //}
+        }
+            nodeA = nodeB;
+            nodeB = nodeB.getGetNextNode();
         }
 
-        nodeA = nodeB;
-        nodeB = nodeB.getGetNextNode();
 
         return false;
     }
 
-    public boolean remove(T el) {
-        return false;
-    }
+
 
     public boolean remove(int el) {
         return false;

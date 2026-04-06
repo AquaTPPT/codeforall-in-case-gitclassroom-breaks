@@ -96,6 +96,11 @@ public class Queue implements QueueInterface, Collection {
     }
 
     @Override
+    public boolean remove(Object el) {
+        return false;
+    }
+
+    @Override
     public boolean contains(Object el) {
         for (int i = 0; i < length; i++) {
             if (el == arr[i]) {
