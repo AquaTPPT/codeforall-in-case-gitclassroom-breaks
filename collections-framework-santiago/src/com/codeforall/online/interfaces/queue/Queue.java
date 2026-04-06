@@ -95,10 +95,6 @@ public class Queue implements QueueInterface, Collection {
         return true;
     }
 
-    @Override
-    public boolean remove(Object el) {
-        return false;
-    }
 
     @Override
     public boolean contains(Object el) {

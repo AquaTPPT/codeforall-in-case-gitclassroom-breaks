@@ -6,6 +6,8 @@ public interface ListInterface<T> {
 
     int indexOf(T el); // return the index of given element
 
+    boolean remove(T el); // remove element from the collection
+
     Object[] subList(int fromIndex, int toIndex); // returns list of objects represented from the given index to the ending index
 
 }

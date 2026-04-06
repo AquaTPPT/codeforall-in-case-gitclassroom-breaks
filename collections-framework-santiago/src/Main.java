@@ -12,6 +12,7 @@ public class Main {
         System.out.println(arrayList.get(1));
 
         LinkedList<User> linkedList = new LinkedList<>();
+        LinkedList<Bank> linkedList1 = new LinkedList<>();
         linkedList.add(new User("joao",15));
         linkedList.add(new User("maria",45));
         linkedList.add(new User("pedro",26));
