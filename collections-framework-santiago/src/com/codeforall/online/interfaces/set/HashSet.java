@@ -4,7 +4,7 @@ import com.codeforall.online.interfaces.Collection;
 
 public class HashSet implements SetInterface, Collection {
     private int length = 0;
-    private Object[] arr;
+    private Object[] arr = new Object[16];
 
     @Override
     public int size() {
@@ -26,59 +26,20 @@ public class HashSet implements SetInterface, Collection {
 
     @Override
     public boolean add(Object el) {
-        Object hashedEl = el.hashCode();
-        // adding objects
-        if (arr == null) {
-            arr = new Object[1];
-            arr[length] = hashedEl;
-            length++;
-            return true;
-        }
-        for (Object element : arr) {
-            if (element == hashedEl) {
-                return false;
-            }
-        }
-        Object[] arrTemp = arr;
-        arr = new Object[length + 1];
-        for (int i = 0; i < arrTemp.length; i++) {
-            arr[i] = arrTemp[i];
-        }
-        arr[length] = el;
-        length++;
-        return true;
-    }
+        int index = setHashPosition(el);
 
-    public boolean add(Object el, int index) {
-        if (arr == null) {
-            arr = new Object[1];
-            arr[length] = el;
-            length++;
-            return true;
-        }
-        for (Object element : arr) {
-            if (element == el) {
-                return false;
+        if (arr[index] != null && arr[index] != el) {
+            int iteration = index;
+            while (arr[iteration] != null) {
+                if (arr[iteration] == null) {
+                    arr[iteration] = el;
+                    return true;
+                }
             }
         }
-        Object[] arrTemp = arr;
-        arr = new Object[length + 1];
-        if (length - 1 > index) {
-            arr[length] = el;
-            length++;
-            return true;
-        }
-        for (int i = 0; i < arrTemp.length; i++) {
-            if (i < index) {
-                arr[i] = arrTemp[i];
-            }
-            else if (i == index) {
-                arr[i] = el;
-            }
-            else {
-                arr[i] = arrTemp[i - 1];
-            }
-        }
+
+        arr[index] = el;
+
         return true;
     }
 
@@ -138,17 +99,26 @@ public class HashSet implements SetInterface, Collection {
 
     @Override
     public boolean contains(Object el) {
-        if (arr == null) {
-            return false;
+        int index = setHashPosition(el);
+        if (arr[index] != null && arr[index] == el) {
+            return true;
         }
-        for (Object element : arr) {
-            if (el == element) {
-                return true;
+        else {
+            int iterator = index;
+            while (setHashPosition(arr[iterator]) == index) {
+                if (arr[iterator] != null && arr[index] == el) {
+                    return true;
+                }
+                iterator++;
             }
         }
         return false;
     }
 
+    public int setHashPosition(Object el) {
+        int hashCode = el.hashCode();
+        return Math.abs(hashCode % arr.length);
+    }
 
     @Override
     public boolean isEmpty() {

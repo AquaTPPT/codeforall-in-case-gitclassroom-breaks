@@ -81,7 +81,7 @@ public class Queue implements QueueInterface, Collection {
         return true;
     }
 
-    public Object[] resize(Object[] arr) {««
+    public Object[] resize(Object[] arr) {
         Object[] arrTemp = arr;
 
         arr = new Object[arrTemp.length * 2];
@@ -100,9 +100,7 @@ public class Queue implements QueueInterface, Collection {
         }
         Object[] arrTemp = new Object[length - 1];
         for (int i = 0; i < arr.length - 1; i++) {
-
             arrTemp[i] = arr[i];
-
         }
         arr = arrTemp;
         return true;
