@@ -2,7 +2,7 @@ package com.codeforall.online.interfaces.set;
 
 import com.codeforall.online.interfaces.Collection;
 
-public class Set implements SetInterface, Collection {
+public class HashSet implements SetInterface, Collection {
     private int length = 0;
     private Object[] arr;
 
@@ -23,16 +23,19 @@ public class Set implements SetInterface, Collection {
         return -1;
     }
 
+
     @Override
-    public boolean add(Object el) { // adding objects
+    public boolean add(Object el) {
+        Object hashedEl = el.hashCode();
+        // adding objects
         if (arr == null) {
             arr = new Object[1];
-            arr[length] = el;
+            arr[length] = hashedEl;
             length++;
             return true;
         }
         for (Object element : arr) {
-            if (element == el) {
+            if (element == hashedEl) {
                 return false;
             }
         }
@@ -146,6 +149,7 @@ public class Set implements SetInterface, Collection {
         return false;
     }
 
+
     @Override
     public boolean isEmpty() {
         return length == 0;
@@ -155,7 +159,5 @@ public class Set implements SetInterface, Collection {
     public void clear() {
         arr = new Object[0];
     }
-
-    //so pra testar se works
 
 }

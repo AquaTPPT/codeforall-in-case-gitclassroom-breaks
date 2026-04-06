@@ -54,7 +54,7 @@ public class Queue implements QueueInterface, Collection {
 
         }
         arr = arrTemp;
-        length--;//also applies to poll lenght++; ?
+        length--; //also applies to poll lenght++; ?
         return firstIndex;
     }
 
@@ -68,6 +68,7 @@ public class Queue implements QueueInterface, Collection {
         Object[] arrTemp = arr;
         arr = new Object[length + 1];
         if (arrTemp == null) {
+
             arr[length] = el;
             length++;
             return true;
@@ -78,6 +79,18 @@ public class Queue implements QueueInterface, Collection {
         arr[length] = el;
         length++;
         return true;
+    }
+
+    public Object[] resize(Object[] arr) {««
+        Object[] arrTemp = arr;
+
+        arr = new Object[arrTemp.length * 2];
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arrTemp[i];
+        }
+
+        arr = arrTemp;
     }
 
     @Override

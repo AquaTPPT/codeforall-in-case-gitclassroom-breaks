@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/codeforall-in-case-gitclassroom-breaks.iml" filepath="$PROJECT_DIR$/.idea/codeforall-in-case-gitclassroom-breaks.iml" />
-      <module fileurl="file://$PROJECT_DIR$/collections-framework-santiago/collections-framework-santiago.iml" filepath="$PROJECT_DIR$/collections-framework-santiago/collections-framework-santiago.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codeforall-in-case-gitclassroom-breaks.iml" filepath="$PROJECT_DIR$/codeforall-in-case-gitclassroom-breaks.iml" />
     </modules>
   </component>
 </project>
