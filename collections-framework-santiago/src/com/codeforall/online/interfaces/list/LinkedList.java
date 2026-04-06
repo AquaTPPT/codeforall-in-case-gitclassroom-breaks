@@ -37,7 +37,6 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
         return false;
     }
 
-    @Override
     public boolean remove(T el) {
 
         Node<T> nodeA = head;
@@ -106,7 +105,7 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
     }
 
     @Override
-    public Object[] subList(int fromIndex, int toIndex) {
-        return new Object[0];
+    public T[] subList(int fromIndex, int toIndex) {
+        return (T[]) new Object[0];
     }
 }
