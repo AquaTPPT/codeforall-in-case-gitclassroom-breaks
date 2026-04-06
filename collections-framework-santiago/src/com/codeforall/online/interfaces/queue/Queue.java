@@ -11,7 +11,7 @@ public class Queue implements QueueInterface, Collection {
     //it should add an object to the Queue.
     @Override
     public boolean offer(Object el) {
-        if (arr == null){
+        if (arr == null) {
             arr = new Object[1];
             arr[0] = el;
             length = 1;
@@ -79,18 +79,6 @@ public class Queue implements QueueInterface, Collection {
         arr[length] = el;
         length++;
         return true;
-    }
-
-    public Object[] resize(Object[] arr) {
-        Object[] arrTemp = arr;
-
-        arr = new Object[arrTemp.length * 2];
-
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = arrTemp[i];
-        }
-
-        arr = arrTemp;
     }
 
     @Override

@@ -5,19 +5,27 @@ import com.codeforall.online.interfaces.Collection;
 public class HashSet implements SetInterface, Collection {
     private int length = 0;
     private Object[] arr = new Object[16];
+    private double loadFactor = 0;
+    private int objectCounter = 0;
+    // load factor missing!!!
 
     @Override
     public int size() {
-        return length;
+        return arr.length;
     }
 
     public int indexOf(Object el) {
-        if (length == 0) {
+        int index = setHashPosition(el);
+        if (arr[index] == null) {
             return -1;
         }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == el) {
-                return i;
+        else if (arr[index] != el) {
+            int iteration = index;
+            while (arr[iteration] != null) {
+                if (arr[iteration] == null) {
+                    arr[iteration] = el;
+                    return iteration;
+                }
             }
         }
         return -1;
@@ -26,74 +34,59 @@ public class HashSet implements SetInterface, Collection {
 
     @Override
     public boolean add(Object el) {
+        if (loadFactor >= 0.9) {
+            resize(arr);
+            redoPercentages();
+        }
         int index = setHashPosition(el);
-
         if (arr[index] != null && arr[index] != el) {
             int iteration = index;
             while (arr[iteration] != null) {
                 if (arr[iteration] == null) {
                     arr[iteration] = el;
+                    addPercentage();
+                    objectCounter++;
                     return true;
                 }
             }
         }
-
+        else if (arr[index] == el) {
+            return false;
+        }
         arr[index] = el;
-
+        addPercentage();
+        objectCounter++;
         return true;
     }
 
-
     @Override
     public boolean remove() {
-        if (length <= 0) {
-            return false;
-        }
-        Object[] arrTemp = new Object[length - 1];
-        for (int i = 0; i < arr.length - 1; i++) {
-            arrTemp[i] = arr[i];
-        }
-        arr = arrTemp;
+        arr[arr.length - 1] = null;
         return true;
     }
 
     public boolean remove(int index) {
-        if (length <= 0 || index >= length) {
-        return false;
-        }
-        Object[] arrTemp = new Object[length - 1];
-        for (int i = 0; i < arr.length; i++) {
-            if (i < index) {
-                arrTemp[i] = arr[i];
-            }
-            else if (i == index) {
-            }
-            else {
-                arrTemp[i - 1] = arr[i];
-            }
-        }
-        arr = arrTemp;
+        arr[index] = null;
         return true;
     }
 
     public boolean remove(Object el) {
-        int index = indexOf(el);
-        if (index == -1) {
-            return false;
-        }
+        int index = setHashPosition(el);
 
-        Object[] arrTemp = new Object[length - 1];
-        for (int i = 0; i < arr.length; i++) {
-            if (i < index) {
-                arrTemp[i] = arr[i];
-            }
-            else if (i == index) {
-            }
-            else {
-                arrTemp[i - 1] = arr[i];
+        if (arr[index] != null && arr[index] == el) {
+            arr[index] = null;
+            return true;
+        }
+        else {
+            int iterator = index;
+            while (setHashPosition(arr[iterator]) == index) {
+                if (arr[iterator] != null && arr[index] == el) {
+                    return true;
+                }
+                iterator++;
             }
         }
-        return true;
+        return false;
     }
 
 
@@ -115,19 +108,49 @@ public class HashSet implements SetInterface, Collection {
         return false;
     }
 
-    public int setHashPosition(Object el) {
+    private Object[] resize(Object[] arr) {
+        Object[] arrTemp = arr;
+
+        arr = new Object[arrTemp.length * 2];
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arrTemp[i];
+        }
+
+        return arr = arrTemp;
+    }
+
+    private int setHashPosition(Object el) {
         int hashCode = el.hashCode();
         return Math.abs(hashCode % arr.length);
     }
 
+    private double addPercentage() {
+        return loadFactor += (1 / arr.length) * 100;
+    }
+
+    private double removePercentage() {
+        return loadFactor -= (1 / arr.length) * 100;
+    }
+
+    private double redoPercentages() {
+        return loadFactor = (objectCounter / arr.length) * 100;
+    }
+
     @Override
     public boolean isEmpty() {
-        return length == 0;
+        for (Object el : arr) {
+            if (el != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public void clear() {
-        arr = new Object[0];
+        for (int i = 0; i < arr.length; i++) {
+          arr[i] = null;
+        }
     }
-
 }
