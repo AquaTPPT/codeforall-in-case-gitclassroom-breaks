@@ -130,8 +130,33 @@ public class LinkedList<T> implements ListInterface<T>, Collection<T> {
         return 0;
     }
 
+
+    // returns list of objects represented from the given index to the ending index
     @Override
     public Object[] subList(int fromIndex, int toIndex) {
-        return new Object[0];
+
+        //avoid errors (negatives values, invalid ranges)
+        if (fromIndex <  0 || toIndex > lenght || fromIndex > toIndex){
+            System.out.println("invalid index");
+            return null;
+        }
+        //size of sublist
+        int size = toIndex - fromIndex;
+        Object[] result = new Object[size];
+
+        Node<T> iterator = head.getGetNextNode();
+
+        //position ourselves in the index we want to start the sublist
+        for (int i = 0; i < fromIndex; i++)
+        {
+            iterator = iterator.getGetNextNode();
+        }
+
+        //we getData() from the nodes of the size that we need
+        for (int i = 0; i < size; i++){
+            result[i] = iterator.getData();
+            iterator = iterator.getGetNextNode();
+        }
+        return result;
     }
 }
